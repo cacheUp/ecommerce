@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 const server = express();
 
+const userRoutes = require("./routes/user");
+
 console.log(process.env.PORT);
 
 mongoose
@@ -16,9 +18,7 @@ mongoose
   })
   .catch(err => console.error(err));
 
-server.get("/", (req, res) => {
-  res.send("hello from node");
-});
+server.use(userRoutes);
 
 const port = process.env.PORT;
 
