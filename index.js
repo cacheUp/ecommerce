@@ -23,7 +23,7 @@ mongoose
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(cookieParser());
-server.use(userRoutes);
+server.use("/api", userRoutes);
 
 const port = process.env.PORT;
 
