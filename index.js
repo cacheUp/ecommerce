@@ -1,7 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
-
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const server = express();
 
 const userRoutes = require("./routes/user");
@@ -18,6 +20,9 @@ mongoose
   })
   .catch(err => console.error(err));
 
+server.use(morgan("dev"));
+server.use(bodyParser.json());
+server.use(cookieParser());
 server.use(userRoutes);
 
 const port = process.env.PORT;
