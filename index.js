@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const server = express();
+const expressValidater = require("express-validator");
 
 const userRoutes = require("./routes/user");
 
@@ -23,6 +24,7 @@ mongoose
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(cookieParser());
+server.use(expressValidater());
 server.use("/api", userRoutes);
 
 const port = process.env.PORT;
