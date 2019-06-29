@@ -27,6 +27,17 @@ const productSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "Category",
       required: true
+    },
+    quantity: {
+      type: Number
+    },
+    photo: {
+      data: Buffer,
+      contentType: String
+    },
+    shipping: {
+      required: false,
+      type: Boolean
     }
   },
   { timestamps: true }
