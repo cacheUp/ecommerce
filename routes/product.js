@@ -6,5 +6,6 @@ const { userById } = require("../controllers/user");
 
 router.post("/product/create/:userId", requireSignIn, isAdmin, isAuth, create);
 router.param("userId", userById);
+router.param("productId", productById);
 
 module.exports = router;
