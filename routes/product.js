@@ -7,7 +7,9 @@ const {
   read,
   remove,
   update,
-  list
+  list,
+  listRelated,
+  listCategories
 } = require("../controllers/product");
 const { userById } = require("../controllers/user");
 
@@ -30,6 +32,8 @@ router.put(
   update
 );
 
+router.get("/products/related/:productId", listRelated);
+router.get("/products/categories", listCategories);
 router.get("/products", list);
 
 router.param("userId", userById);
