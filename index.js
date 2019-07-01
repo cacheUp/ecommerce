@@ -12,7 +12,7 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 console.log(process.env.PORT);
-
+//
 mongoose
   .connect(`${process.env.DB_CONFIG}`, {
     useNewUrlParser: true,
