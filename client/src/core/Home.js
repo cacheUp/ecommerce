@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../core/Layout";
+import Layout from "./Layout";
 
-const Signin = () => {
+const Home = () => {
   return (
     <Layout title="Home Page" description="Node React E-Commerce App">
       ...
@@ -9,4 +9,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Home;
