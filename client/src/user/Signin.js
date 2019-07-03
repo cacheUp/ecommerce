@@ -84,8 +84,8 @@ const Signin = () => {
 
   return (
     <Layout
-      title="Home Page"
-      description="Node React E-Commerce App"
+      title="Sign In"
+      description="Sign into Node React E-Commerce App"
       className="container col-md-8 offset-md-2"
     >
       {showError()}
