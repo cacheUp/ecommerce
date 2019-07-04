@@ -25,3 +25,10 @@ export const signin = user => {
     .then(res => res.json())
     .catch(err => console.error(err));
 };
+
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("jwt", JSON.stringify(data));
+    next();
+  }
+};
