@@ -6,8 +6,8 @@ import { signin, authenticate } from "../auth";
 
 const Signin = () => {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    email: "brad@brad.com",
+    password: "123456",
     error: "",
     success: false,
     loading: false,
@@ -27,7 +27,7 @@ const Signin = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        authenticate(data.token, () => {
+        authenticate(data, () => {
           setValues({
             ...values,
             redirectToReferrer: true
@@ -80,7 +80,7 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-      return <Redirect to="/" />;
+      return <Redirect to="/user/dashboard" />;
     }
   };
 
