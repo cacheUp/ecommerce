@@ -8,3 +8,5 @@ const Dashboard = () => {
     </Layout>
   );
 };
+
+export default Dashboard;
