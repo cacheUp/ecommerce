@@ -8,10 +8,18 @@ const AddCategory = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = e => {};
+  const handleChange = e => {
+    setError("");
+    setName(e.target.value);
+  };
+  const clickSubmit = e => {
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+  };
 
   const { user, token } = isAuthenticated();
-  const newCategoryFom = () => (
+  const newCategoryForm = () => (
     <form>
       <div className="form-group">
         <label className="text-muted">Name</label>
@@ -23,9 +31,17 @@ const AddCategory = () => {
           autoFocus
         />
       </div>
-      <button className="btn btn-outline-primary" />
+      <button className="btn btn-outline-primary">Create a Category</button>
     </form>
   );
 
-  return <div>{newCategoryFom()}</div>;
+  return (
+    <Layout title="Add a new category" description={`Hello ${name}`}>
+      <div className="row">
+        <div className="col-md-8 offset-md-2">{newCategoryForm()}</div>
+      </div>
+    </Layout>
+  );
 };
+
+export default AddCategory;
