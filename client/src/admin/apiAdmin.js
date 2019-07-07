@@ -40,7 +40,7 @@ export const getCategories = () => {
     method: "GET"
   })
     .then(response => {
-      return response.json;
+      return response.json();
     })
     .catch(err => console.error(err));
 };
