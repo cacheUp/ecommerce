@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { createProduct } from "./apiAdmin";
 
 const AddProduct = () => {
-  const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -21,7 +20,7 @@ const AddProduct = () => {
     redirectToProfile: false,
     formData: ""
   });
-
+  const { user, token } = isAuthenticated();
   const {
     name,
     description,
@@ -39,7 +38,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     setValues({ ...values, formData: new FormData() });
-  });
+  }, []);
 
   const handleChange = name => event => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
@@ -47,8 +46,31 @@ const AddProduct = () => {
     setValues({ ...values, [name]: value });
   };
 
+  const clickSubmit = event => {
+    event.preventDefault();
+    setValues({ ...values, error: "", loading: true });
+
+    createProduct(user._id, token, formData).then(data => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          description: "",
+          photo: "",
+          price: "",
+          quantity: "",
+          loading: false,
+          createdProduct: data.name
+        });
+      }
+    });
+  };
+
   const newPostForm = () => (
-    <form className="mb-3">
+    <form className="mb-3" onSubmit={clickSubmit}>
+      {console.log(values)}
       <h4>Post Photo</h4>
       <div className="form-group">
         <label className="btn btn-secondary">
@@ -66,7 +88,7 @@ const AddProduct = () => {
           onChange={handleChange("name")}
           type="text"
           className="form-control"
-          values={name}
+          value={name}
         />
       </div>
       <div className="form-group">
@@ -74,7 +96,7 @@ const AddProduct = () => {
         <textarea
           onChange={handleChange("description")}
           className="form-control"
-          values={description}
+          value={description}
         />
       </div>
       <div className="form-group">
@@ -83,12 +105,13 @@ const AddProduct = () => {
           onChange={handleChange("price")}
           type="number"
           className="form-control"
-          values={price}
+          value={price}
         />
       </div>
       <div className="form-group">
         <label className="text-muted">Category</label>
         <select onChange={handleChange("category")} className="form-control">
+          <option value="5d5d1c44c7573220bd8fdf28">Yup</option>
           <option value="5d5d1c44c7573220bd8fdf28">Yup</option>
         </select>
       </div>
@@ -98,7 +121,7 @@ const AddProduct = () => {
           onChange={handleChange("quantity")}
           type="number"
           className="form-control"
-          values={quantity}
+          value={quantity}
         />
       </div>
       <div className="form-group">
