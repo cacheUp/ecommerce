@@ -30,7 +30,6 @@ const AddProduct = () => {
     category,
     shipping,
     quantity,
-
     loading,
     error,
     createdProduct,
@@ -38,10 +37,20 @@ const AddProduct = () => {
     formData
   } = values;
 
+  const newPostForm = () => (
+    <form className="mb-3">
+      <h4>Post Photo</h4>
+      <div className="form-group">
+        <label />
+        <input type="file" name="photo" accept="image/*" />
+      </div>
+    </form>
+  );
+
   return (
     <Layout title="Add a new product" description={`Hello ${user.name}`}>
       <div className="row">
-        <div className="col-md-8 offset-md-2">text</div>
+        <div className="col-md-8 offset-md-2">{newPostForm()}</div>
       </div>
     </Layout>
   );
