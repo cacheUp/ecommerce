@@ -9,3 +9,13 @@ export const getProducts = sortBy => {
     })
     .catch(err => console.error(err));
 };
+
+export const getCategories = () => {
+  return fetch(`${API}/categories`, {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.error(err));
+};
