@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { read } from "./apiCore";
+import { read, listRelated } from "./apiCore";
 import Card from "./Card";
 import Search from "./Search";
 
 export const Product = props => {
   const [product, setProduct] = useState({});
   const [error, setError] = useState(false);
+  const [relatedProduct, setRelatedProduct] = useState([]);
 
   const loadSingleProduct = productId => {
     read(productId).then(data => {
@@ -14,6 +15,13 @@ export const Product = props => {
         setError(data.error);
       } else {
         setProduct(data);
+        listRelated(data._id).then(data => {
+          if (data.error) {
+            setError(data.error);
+          } else {
+            setRelatedProduct(data);
+          }
+        });
       }
     });
   };
@@ -21,7 +29,7 @@ export const Product = props => {
   useEffect(() => {
     const productId = props.match.params.productId;
     loadSingleProduct(productId);
-  }, []);
+  }, [props]);
 
   return (
     <Layout
@@ -32,9 +40,22 @@ export const Product = props => {
       className="container-fluid"
     >
       <div className="row">
-        {product && product.description && (
-          <Card showViewProductButton={false} product={product} />
-        )}
+        <div className="col-8">
+          {product && product.description && (
+            <Card showViewProductButton={false} product={product} />
+          )}
+        </div>
+
+        <div className="col-4">
+          <h4>Related Products</h4>
+          {relatedProduct.map((item, index) => {
+            return (
+              <div className="mb-3" key={index}>
+                <Card product={item} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Layout>
   );

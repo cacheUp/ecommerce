@@ -64,3 +64,14 @@ export const read = productId => {
     })
     .catch(err => console.error(err));
 };
+
+export const listRelated = productId => {
+  return fetch(`${API}/products/related/${productId}`, {
+    method: "GET"
+  })
+    .then(response => {
+      console.log(response.data);
+      return response.json();
+    })
+    .catch(err => console.error(err));
+};
