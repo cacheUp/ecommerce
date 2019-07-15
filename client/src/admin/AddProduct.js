@@ -58,6 +58,7 @@ const AddProduct = () => {
   const handleChange = name => event => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
+    // showFormData();
     setValues({ ...values, [name]: value });
   };
 
@@ -85,8 +86,6 @@ const AddProduct = () => {
 
   const newPostForm = () => (
     <form className="mb-3" onSubmit={clickSubmit}>
-      {console.log(categories)}
-      {console.log(values)}
       <h4>Post Photo</h4>
       <div className="form-group">
         <label className="btn btn-secondary">
@@ -187,6 +186,12 @@ const AddProduct = () => {
         </div>
       )
     );
+  };
+
+  const showFormData = () => {
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
   };
 
   return (
