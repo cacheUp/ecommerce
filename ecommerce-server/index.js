@@ -11,6 +11,8 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
+const braintreeRoutes = require("./routes/braintree");
+
 console.log(process.env.PORT);
 //
 mongoose
@@ -32,6 +34,7 @@ server.use("/api", authRoutes);
 server.use("/api", userRoutes);
 server.use("/api", categoryRoutes);
 server.use("/api", productRoutes);
+server.use("/api", braintreeRoutes);
 const port = process.env.PORT;
 
 server.listen(port, () => {
