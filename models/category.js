@@ -16,4 +16,4 @@ const categorySchema = new mongoose.Schema(
 
 // virtual field
 
-module.exports = mongoose.model("User", categorySchema);
+module.exports = mongoose.model("Category", categorySchema);
