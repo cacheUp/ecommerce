@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const server = express();
 const expressValidater = require("express-validator");
 
+const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 
 console.log(process.env.PORT);
@@ -25,8 +26,8 @@ server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(expressValidater());
+server.use("/api", authRoutes);
 server.use("/api", userRoutes);
-
 const port = process.env.PORT;
 
 server.listen(port, () => {
