@@ -25,3 +25,22 @@ export const signin = user => {
     .then(res => res.json())
     .catch(err => console.error(err));
 };
+
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("jwt", JSON.stringify(data));
+    next();
+  }
+};
+
+export const signout = next => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("jwt");
+    next();
+    return fetch(`${API}/signout`, {
+      method: "GET"
+    }).then(res =>
+      console.log("signout", res).catch(err => console.error(err))
+    );
+  }
+};
