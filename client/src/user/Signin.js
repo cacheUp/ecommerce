@@ -27,7 +27,7 @@ const Signin = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        authenticate(data, () => {
+        authenticate(data.token, () => {
           setValues({
             ...values,
             redirectToReferrer: true
