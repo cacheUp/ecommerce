@@ -10,6 +10,7 @@ const AddCategory = () => {
   const [success, setSuccess] = useState(false);
 
   const {
+    user,
     user: { _id },
     token
   } = isAuthenticated();
@@ -24,7 +25,7 @@ const AddCategory = () => {
     setSuccess(false);
     createCategory(_id, token, { name }).then(data => {
       if (data.error) {
-        setError(data.error);
+        setError(true);
       } else {
         setError("");
         setSuccess(true);
@@ -33,7 +34,7 @@ const AddCategory = () => {
   };
 
   const newCategoryForm = () => (
-    <form>
+    <form onSubmit={clickSubmit}>
       <div className="form-group">
         <label className="text-muted">Name</label>
         <input
@@ -42,9 +43,12 @@ const AddCategory = () => {
           onChange={handleChange}
           value={name}
           autoFocus
+          required
         />
       </div>
-      <button className="btn btn-outline-primary">Create a Category</button>
+      <button type="submit" className="btn btn-outline-primary">
+        Create a Category
+      </button>
     </form>
   );
 
@@ -55,14 +59,30 @@ const AddCategory = () => {
   };
   const showError = () => {
     if (error) {
-      return <h3 className="text-danger">{name} should be unique</h3>;
+      return <h3 className="text-danger">Category should be unique</h3>;
     }
   };
 
+  const goBack = () => {
+    return (
+      <div className="mt-5">
+        <Link to="/admin/dashboard" className="text-warning">
+          {" "}
+          Back to Dashboard
+        </Link>
+      </div>
+    );
+  };
+
   return (
-    <Layout title="Add a new category" description={`Hello ${name}`}>
+    <Layout title="Add a new category" description={`Hello ${user.name}`}>
       <div className="row">
-        <div className="col-md-8 offset-md-2">{newCategoryForm()}</div>
+        <div className="col-md-8 offset-md-2">
+          {showError()}
+          {showSuccess()}
+          {newCategoryForm()}
+          {goBack()}
+        </div>
       </div>
     </Layout>
   );
