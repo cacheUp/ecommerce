@@ -45,7 +45,7 @@ const AdminDashboard = () => {
     <Layout
       title="Dashboard"
       description={`Hello ${name}`}
-      className="container"
+      className="container-fluid"
     >
       <div className="row">
         <div className="col-3">{adminLinks()}</div>
