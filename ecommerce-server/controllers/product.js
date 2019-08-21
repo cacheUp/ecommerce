@@ -30,7 +30,9 @@ exports.create = (req, res) => {
         error: "Image could not be uploaded"
       });
     }
+    // check for all fields
     const { name, description, price, category, quantity, shipping } = fields;
+
     if (
       !name ||
       !description ||
@@ -43,27 +45,33 @@ exports.create = (req, res) => {
         error: "All fields are required"
       });
     }
+
     let product = new Product(fields);
+
+    // 1kb = 1000
+    // 1mb = 1000000
+
     if (files.photo) {
-      if (files.photo.size > 10000000) {
+      // console.log("FILES PHOTO: ", files.photo);
+      if (files.photo.size > 1000000) {
         return res.status(400).json({
-          error: "Image is too big"
+          error: "Image should be less than 1mb in size"
         });
       }
       product.photo.data = fs.readFileSync(files.photo.path);
       product.photo.contentType = files.photo.type;
     }
+
     product.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: errorHandler(err)
         });
       }
       res.json(result);
     });
   });
 };
-
 exports.remove = (req, res) => {
   let product = req.product;
   product.remove((err, deletedProduct) => {
