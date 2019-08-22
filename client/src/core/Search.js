@@ -16,9 +16,18 @@ const Search = () => {
     loadCategories();
   }, []);
 
-  const searchSubmit = () => {};
+  const searchData = () => {
+    console.log(search, category);
+  };
 
-  const handleChange = name => event => {};
+  const searchSubmit = e => {
+    e.preventDefault();
+    searchData();
+  };
+
+  const handleChange = name => event => {
+    setData({ ...data, [name]: event.target.value, searched: false });
+  };
 
   const searchForm = () => {
     return (
